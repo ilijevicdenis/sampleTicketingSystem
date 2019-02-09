@@ -1,0 +1,147 @@
+﻿<UserControl x:Class="TicketBooking.UserControls.UserMonitoringUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:locale="clr-namespace:TicketBooking.Localization"
+             mc:Ignorable="d" 
+             Margin="10"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal">
+            <Button Content="{x:Static locale:ApplicationLocaleResource.Tickets}" />
+        </StackPanel>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+
+                <StackPanel Background="LightGray">
+                    <Label Content="{x:Static locale:ApplicationLocaleResource.EntranceMonitoring}"
+                           FontSize="14"
+                           HorizontalAlignment="Center"/>
+                </StackPanel>
+
+                <DataGrid
+                    ItemsSource="{Binding MonitoringData.MonitoringEntrances}"
+                    AutoGenerateColumns="False"
+                    ScrollViewer.CanContentScroll="True"
+                    VerticalScrollBarVisibility="Auto"
+                    CanUserSortColumns="True"
+                    Grid.Row="1" Margin="0,5,0,0">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Binding="{Binding EntryId}" Header="{x:Static locale:GridColumnNames.EntryIdentifier}" />
+                        <DataGridTextColumn Binding="{Binding EntryTime}" Header="{x:Static locale:GridColumnNames.EntryTime}" />
+                        <DataGridTextColumn Binding="{Binding Time}" Header="{x:Static locale:GridColumnNames.Time}" />
+                        <DataGridTextColumn Binding="{Binding TotalPrice}" Header="{x:Static locale:GridColumnNames.TotalPrice}" />
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+
+            <Grid Grid.Column="1" Margin="20,0,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Background="LightGray">
+                        <Label Content="{x:Static locale:ApplicationLocaleResource.LoggedUsers}"
+                               FontSize="14"
+                               HorizontalAlignment="Center" />
+
+                    </StackPanel>
+
+                    <DataGrid ItemsSource="{Binding MonitoringData.UserLogins}"
+                              Grid.Row="1"
+                              AutoGenerateColumns="False"
+                              ScrollViewer.CanContentScroll="True"
+                              VerticalScrollBarVisibility="Auto">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="{x:Static locale:GridColumnNames.Lastnane}" Binding="{Binding Surname}" />
+                            <DataGridTextColumn Header="{x:Static locale:GridColumnNames.Firstname}" Binding="{Binding Firstname}" />
+                            <DataGridTextColumn Header="{x:Static locale:GridColumnNames.LoginTime}" Binding="{Binding LoginTime}" />
+                            <DataGridTextColumn Header="{x:Static locale:GridColumnNames.WorkTime}" Binding="{Binding WorkTime}" />
+
+                        </DataGrid.Columns>
+
+                    </DataGrid>
+                </Grid>
+
+                <StackPanel Grid.Row="1" Orientation="Horizontal">
+                    <Button Content="{x:Static locale:ApplicationLocaleResource.Register}" />
+                    <Button Content="{x:Static locale:ApplicationLocaleResource.Exit}" />
+                </StackPanel>
+
+
+                <StackPanel Grid.Row="2">
+                    <GroupBox Header="{x:Static locale:ApplicationLocaleResource.MonitoringReportInformation}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+
+                            <TextBlock Grid.Row="0"
+                                       HorizontalAlignment="Right"
+                                       Text="{x:Static locale:ApplicationLocaleResource.LogonUserNumber}" />
+                            <TextBlock Text="{Binding MonitoringData.PeopleCount}"
+                                     HorizontalAlignment="Right" 
+                                     Grid.Column="1" />
+
+                            <TextBlock Grid.Row="1"
+                                       HorizontalAlignment="Right"
+                                       Text="{x:Static locale:ApplicationLocaleResource.AvarageStayLen}" />
+                            <TextBlock Grid.Column="1" Grid.Row="1"
+                                     Text="{Binding MonitoringData.AvaragesLengthOfStay}"
+                                     HorizontalAlignment="Right" />
+                        </Grid>
+                    </GroupBox>
+                    <GroupBox Header="{x:Static locale:ApplicationLocaleResource.IncomeInformations}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+
+                            <TextBlock Text="{x:Static locale:ApplicationLocaleResource.TotalIncome}"
+                                       Grid.Row="0" Grid.Column="0"
+                                       HorizontalAlignment="Right" />
+                            <TextBlock Text="{Binding MonitoringData.TotalIncome}"
+                                     HorizontalAlignment="Right"
+                                     Grid.Row="0" Grid.Column="1" />
+                        </Grid>
+                    </GroupBox>
+
+                </StackPanel>
+            </Grid>
+
+        </Grid>
+    </Grid>
+</UserControl>
